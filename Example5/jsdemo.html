@@ -33,12 +33,37 @@
         console.log("I am " + angular.uppercase("shouting"));
         console.log("I am " + angular.lowercase("WhiSperIng"));
 
-        var myData = new Object();
-        myData.name = "Adam";
-        myData.weather = "sunny";
-        console.log("Hello " + myData.name + ". ");
-        console.log("Today is " + myData.weather + ". ");
+        var myData = {
+            name: "Adam",
+            weather: "rainy",
+            printMessages: function () {
+                console.log("Hello " + myData.name + ". ");
+                console.log("Today is " + myData.weather + ".");
+            }
+        };
 
+        var myExtend = {
+            city: "London",
+            weather: "sunny",
+            printMessages: function () {
+                console.log("I live in " + myExtend.city);
+            }
+        }
+
+        angular.extend(myExtend, myData);
+        myData.printMessages();
+        myExtend.printMessages();
+        console.log(myExtend.city);
+
+        for (var prop in myData) {
+            console.log("Name: " + prop + " Value: " + myData[prop]);
+        }
+
+        console.log("---");
+
+        angular.forEach(myData, function (hint, ghis) {
+            console.log("Name: " + ghis + " Value: " + hint);
+        });
     </script>
 </head>
 <body>
