@@ -8,29 +8,23 @@
     <link rel="stylesheet" href="bootstrap-theme.css" />
     <script src="angular.js"></script>
     <script type="text/javascript">
-
+        // declaring the app/module
         var myApp = angular.module("demo", []);
-        
-        function successCallback(response) {
-            
-            $scope.todos = response.data;
-        }
 
-        function errorCallback(response) {
-            $scope.error = response.data;
-        }
-
+        // declaring the controller
         myApp.controller("demoCtrl", function ($scope, $http) {
-            var promise = $http.get("todo.json").then(
-                function (response) {
-                    $scope.todos = response.data;
-                },
-                function (response) {
-                    $scope.error = response.data;
-                }
-            );
-        });
+            // function if $http.get is successful
+            function successCallback(response) {
 
+                $scope.todos = response.data;
+            }
+            // function if $http.get is unsuccessful
+            function errorCallback(response) {
+                $scope.error = response.data;
+            }
+            // The promise
+            var promise = $http.get("todo.json").then(successCallback, errorCallback);
+        });
 
     </script>
 </head>
