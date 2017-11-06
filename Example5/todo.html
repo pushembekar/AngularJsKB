@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" ng-app="demo">
+<head >
+    <meta charset="utf-8" />
+    <title>Demo</title>
+    <link rel="stylesheet" href="bootstrap.css" />
+    <link rel="stylesheet" href="bootstrap-theme.css" />
+    <script src="angular.js"></script>
+    <script type="text/javascript">
+
+        var myApp = angular.module("demo", []);
+        
+        function successCallback(response) {
+            
+            $scope.todos = response.data;
+        }
+
+        function errorCallback(response) {
+            $scope.error = response.data;
+        }
+
+        myApp.controller("demoCtrl", function ($scope, $http) {
+            var promise = $http.get("todo.json").then(
+                function (response) {
+                    $scope.todos = response.data;
+                },
+                function (response) {
+                    $scope.error = response.data;
+                }
+            );
+        });
+
+
+    </script>
+</head>
+<body ng-controller="demoCtrl">
+    <div class="panel">
+        <h1>To Do</h1>
+        <table class="table">
+            <tr>
+                <td>Action</td>
+                <td>Done</td>
+            </tr>
+            <tr ng-repeat="todo in todos">
+                <td>{{todo.action}}</td>
+                <td>{{todo.done}}</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
