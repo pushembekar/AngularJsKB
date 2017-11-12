@@ -11,8 +11,9 @@
     <script>
         angular.module("sportStore", []);
     </script>
+    <script src="controllers/sportsStore.js"></script>
 </head>
-<body>
+<body ng-controller="sportStoreCtrl">
     <div class="navbar navbar-inverse">
         <a class="navbar-brand" href="#">SPORT STORE</a>
     </div>
@@ -21,7 +22,13 @@
             Categories go here
         </div>
         <div class="col-8">
-            Products go here
+            <div class="cards" ng-repeat="item in data.products">
+                <h3>
+                    <strong>{{item.name}}</strong>
+                    <span class="float-right label label-primary">{{item.price | currency}}</span>
+                    <span class="lead">{{item.description}}</span>
+                </h3>
+            </div>
         </div>
     </div>
 </body>

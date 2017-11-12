@@ -1,5 +1,5 @@
 //add the module
-angular.module("sportsStore")
+angular.module("sportStore")
     .controller("sportStoreCtrl", function ($scope) {
         $scope.data = {
             products: [
