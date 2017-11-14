@@ -26,6 +26,6 @@ angular.module("sportsStore")
         }
 
         $scope.getPageClass = function (page) {
-            return selectedPage == page ? productListActiveClass : "";
+            return $scope.selectedPage == page ? productListActiveClass : "";
         }
     });
