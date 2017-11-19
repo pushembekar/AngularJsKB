@@ -5,7 +5,7 @@ angular.module("sportsStoreAdmin")
     {
         $scope.authenticate = function (user, pass)
         {
-            http.post(authUrl, { username: user, password: pass }, {
+            $http.post(authUrl, { username: user, password: pass }, {
                 withCredentials: true
             }).then(function (data) {
                 $location.path("/main");
