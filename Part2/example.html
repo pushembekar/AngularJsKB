@@ -7,35 +7,74 @@
     <link href="styles/bootstrap/bootstrap.css" rel="stylesheet" />
     <link href="styles/bootstrap/bootstrap-theme.css" rel="stylesheet" />
     <script src="scripts/angular/angular.js"></script>
+    <script src="scripts/controllers/controller.js"></script>
+    <script src="scripts/filters/filter.js"></script>
     <script>
-        var myApp = angular.module("exampleApp", []);
+        var myApp = angular.module("exampleApp", ["exampleApp.Controllers", "exampleApp.Filters", "exampleApp.Directives", "exampleApp.Services"]);
 
-        myApp.controller("dayCtrl", function ($scope) {
-            var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-            $scope.day = new Date().getDay();
+        myApp.constant("startTime", new Date().toLocaleTimeString());
+        myApp.config(function (startTime) {
+            console.log("Main module config: " + startTime);
         });
 
-        myApp.controller("tomorrowCtrl", function ($scope) {
-            var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-            $scope.day = new Date().getDay() + 1;
+        myApp.run(function (startTime) {
+            console.log("Main module run: " + startTime);
         });
 
-        myApp.directive("highlight", function ($filter) {
-            var dayFilter = $filter("dayName");
-            return function (scope, element, attrs) {
-                if (dayFilter(scope.day) == attrs["highlight"]) {
-                    element.css("color", "red");
+        angular.module("exampleApp.Directives", [])
+            .directive("highlight", function ($filter) {
+                var dayFilter = $filter("dayName");
+                return function (scope, element, attrs) {
+                    if (dayFilter(scope.day) == attrs["highlight"]) {
+                        element.css("color", "red");
+                    }
                 }
-            }
-        });
+            });
 
-        myApp.filter("dayName", function () {
-            var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        var now = new Date();
+        myApp.value("nowValue", now);
 
-            return function (input) {
-                return angular.isNumber(input) ? dayNames[input] : input;
-            };
-        });
+        angular.module("exampleApp.Services", [])
+            .service("days", function (nowValue) {
+                this.today = nowValue.getDay();
+                this.tomorrow = this.today + 1;
+            })
+            .config(function () {
+                console.log("Services module config: (no time)");
+            })
+            .run(function (startTime) {
+                console.log("Services module run: " + startTime);
+            });
+
+        //myApp.controller("dayCtrl", function ($scope, days) {
+        //    $scope.day = days.today;
+        //});
+
+        //myApp.controller("tomorrowCtrl", function ($scope, days) {
+        //    $scope.day = days.tomorrow;
+        //});
+
+        //myApp.directive("highlight", function ($filter) {
+        //    var dayFilter = $filter("dayName");
+        //    return function (scope, element, attrs) {
+        //        if (dayFilter(scope.day) == attrs["highlight"]) {
+        //            element.css("color", "red");
+        //        }
+        //    }
+        //});
+
+        //myApp.filter("dayName", function () {
+        //    var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+        //    return function (input) {
+        //        return angular.isNumber(input) ? dayNames[input] : input;
+        //    };
+        //});
+
+        //myApp.service("days", function (nowValue) {
+        //    this.today = nowValue.getDay();
+        //    this.tomorrow = this.today + 1;
+        //});
     </script>
 </head>
 <body>
