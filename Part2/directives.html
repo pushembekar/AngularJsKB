@@ -10,6 +10,9 @@
     <script>
         angular.module("exampleApp", [])
             .controller("defaultCtrl", function ($scope) {
+
+                $scope.data = {};
+
                 $scope.todos = [
                     { action: "Get groceries", complete: false },
                     { action: "Call Plumber", complete: false },
@@ -127,6 +130,27 @@
                 </div>
             </div>
             <ng-include src="viewFile()"></ng-include>
+        </div>
+
+        <div class="well">
+            
+            <div class="radio" ng-repeat="button in ['None', 'Table', 'List']">
+                <label>
+                    <input type="radio" ng-model="data.mode" value="{{button}}" ng-checked="$first" />{{button}}
+                </label>
+            </div>
+        </div>
+        <div ng-switch on="data.mode">
+            <h3>Switch statement</h3>
+            <div ng-switch-when="Table">
+                <ng-include src="'views/table.html'"></ng-include>
+            </div>
+            <div ng-switch-when="List">
+                <ng-include src="'views/list.html'"></ng-include>
+            </div>
+            <div ng-switch-default>
+                Select another option to display a layout
+            </div>
         </div>
     </div>
 </body>
