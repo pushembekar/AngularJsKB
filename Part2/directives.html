@@ -17,6 +17,10 @@
                     { action: "Buy flowers", complete: false },
                     { action: "Call family", complete: false }
                 ];
+
+                $scope.viewFile = function () {
+                    return $scope.showList ? "views/list.html" : "views/table.html";
+                };
             });
     </script>
     <style>
@@ -90,6 +94,39 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+
+        <div>
+            <table class="table">
+                <tbody>
+                    <tr ng-repeat-start="item in todos">
+                        <td>This is item {{$index}}</td>
+                    </tr>
+                    <tr>
+                        <td>The action is: {{item.action}}</td>
+                    </tr>
+                    <tr ng-repeat-end>
+                        <td>Item {{$index}} is {{$item.complete ? '' : 'not '}}complete</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <h3 class="panel-header">To Do List from partial view</h3>
+            <ng-include src="'views/table.html'"></ng-include>
+        </div>
+
+        <div>
+            <h3 class="panel-header">To Do List from partial view with choice</h3>
+            <div class="well">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="showList" />Use the list view
+                    </label>
+                </div>
+            </div>
+            <ng-include src="viewFile()"></ng-include>
         </div>
     </div>
 </body>

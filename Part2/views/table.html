@@ -1,0 +1,15 @@
+﻿<div>
+    <table class="table">
+        <thead>
+            <th>#</th>
+            <th>Action</th>
+            <th>Done</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in todos" ng-class="$odd ? 'odd' : 'even'">
+                <td>{{$index + 1}}</td>
+                <td ng-repeat="prop in item">{{prop}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
