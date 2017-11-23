@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" ng-app="exampleApp">
+<head>
+    <meta charset="utf-8" />
+    <title>Elements and Events</title>
+    <script src="scripts/angular/angular.js"></script>
+    <link href="styles/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="styles/bootstrap/bootstrap-theme.css" rel="stylesheet" />
+    <script>
+        angular.module("exampleApp", [])
+            .controller("defaultCtrl", function ($scope) {
+
+                $scope.data = {};
+
+                $scope.todos = [
+                    { action: "Get groceries", complete: false },
+                    { action: "Call Plumber", complete: false },
+                    { action: "Buy running shoes", complete: true },
+                    { action: "Buy flowers", complete: false },
+                    { action: "Call family", complete: false }
+                ];
+
+                $scope.viewFile = function () {
+                    return $scope.showList ? "views/list.html" : "views/table.html";
+                };
+            });
+    </script>
+    <style>
+        .odd {
+            background-color: lightcoral
+        }
+
+        .even {
+            background-color: lavenderblush
+        }
+        
+        td > *:first-child {font-weight: bold;}
+    </style>
+</head>
+<body>
+    <div id="todoPanel" class="panel" ng-controller="defaultCtrl">
+        <h3 class="panel-header">To Do list</h3>
+        <h6>There are <span class="ng-bind: todos.length"></span> items</h6>
+        <div ng-bind-template="First: {{todos[0].action}}. Second: {{todos[1].action}}"></div>
+        <div ng-non-bindable>AngularJS uses {{ and }} characters for templates</div>
+
+        <div class="checkbox well">
+            <label>
+                <input type="checkbox" ng-model="todos[2].complete" />Item 3 is complete
+            </label>
+        </div>
+
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Action</th>
+                        <th>Done</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in todos">
+                        <td>{{$index + 1}}</td>
+                        <td ng-repeat="prop in item">{{prop}}</td>
+                        <td>
+                            <span ng-hide="item.complete">(Incomplete)</span>
+                            <span ng-show="item.complete">(Complete)</span>
+                        </td>
+                        <td>
+                            <span ng-if="!item.complete">(Incomplete)</span>
+                            <span ng-if="item.complete">(Complete)</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
