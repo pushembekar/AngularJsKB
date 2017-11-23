@@ -52,7 +52,7 @@
         </div>
 
         <div>
-            <table class="table">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -61,17 +61,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="item in todos">
+                    <tr ng-repeat="item in todos | filter: {complete: 'false'}" ng-hide="item.complete">
                         <td>{{$index + 1}}</td>
-                        <td ng-repeat="prop in item">{{prop}}</td>
-                        <td>
-                            <span ng-hide="item.complete">(Incomplete)</span>
-                            <span ng-show="item.complete">(Complete)</span>
-                        </td>
-                        <td>
-                            <span ng-if="!item.complete">(Incomplete)</span>
-                            <span ng-if="item.complete">(Complete)</span>
-                        </td>
+                        <td>{{item.action}}</td>
+                        <td>{{item.complete}}</td>
                     </tr>
                 </tbody>
             </table>
