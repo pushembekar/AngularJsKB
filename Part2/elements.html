@@ -11,7 +11,7 @@
         angular.module("exampleApp", [])
             .controller("defaultCtrl", function ($scope) {
 
-                $scope.data = {};
+                
 
                 $scope.todos = [
                     { action: "Get groceries", complete: false },
@@ -24,9 +24,28 @@
                 $scope.buttonNames = ["Red", "Green", "Blue"];
 
                 $scope.settings = { Rows: "Red", Columns: "Green" };
+
+                $scope.data = { rowColor: "Blue", columnColor: "Green" };
+
+                $scope.handleEvent = function (e) {
+                    console.log("Event type: " + e.type);
+                    $scope.data.columnColor = e.type == "mouseover" ? "Green" : "Blue";
+                    console.log("Color: " + $scope.data.columnColor);
+                };
             });
     </script>
     <style>
+        .Red {
+            background-color: lightcoral;
+        }
+
+        .Green {
+            background-color: lightgreen;
+        }
+
+        .Blue {
+            background-color: lightblue;
+        }
         /*.odd {
             background-color: lightcoral
         }
@@ -39,7 +58,7 @@
             font-weight: bold;
         }*/
 
-        tr.Red {
+        /*tr.Red {
             background-color: lightcoral;
         }
 
@@ -49,7 +68,7 @@
 
         tr.Blue {
             background-color: lightblue;
-        }
+        }*/
     </style>
 </head>
 <body>
@@ -59,15 +78,40 @@
         <div ng-bind-template="First: {{todos[0].action}}. Second: {{todos[1].action}}"></div>
         <div ng-non-bindable>AngularJS uses {{ and }} characters for templates</div>
 
-        <div class="row well">
+        <!--<div class="row well">
             <div class="col-xs-6" ng-repeat="(key, val) in settings">
                 <h4>{{key}}</h4>
                 <div class="radio" ng-repeat="button in buttonNames">
                     <input type="radio" ng-model="settings[key]" value="{{button}}" />{{button}}
                 </div>
             </div>
+        </div>-->
+
+        <div class="well">
+            <span ng-repeat="button in buttonNames">
+                <button class="btn btn-info" ng-click="data.rowColor = button">{{button}}</button>
+            </span>
         </div>
         <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Action</th>
+                        <th>Done</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in todos" ng-class="data.rowColor" ng-mouseenter="handleEvent($event)" ng-mouseleave="handleEvent($event)">
+                        <td>{{$index + 1}}</td>
+                        <td>{{item.action}}</td>
+                        <td ng-class="data.columnColor">{{item.complete}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!--<div>
             <table class="table">
                 <thead>
                     <tr>
@@ -84,7 +128,7 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </div>-->
 
         <div class="checkbox well">
             <label>
