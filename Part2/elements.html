@@ -21,21 +21,35 @@
                     { action: "Call family", complete: false }
                 ];
 
-                $scope.viewFile = function () {
-                    return $scope.showList ? "views/list.html" : "views/table.html";
-                };
+                $scope.buttonNames = ["Red", "Green", "Blue"];
+
+                $scope.settings = { Rows: "Red", Columns: "Green" };
             });
     </script>
     <style>
-        .odd {
+        /*.odd {
             background-color: lightcoral
         }
 
         .even {
             background-color: lavenderblush
         }
-        
-        td > *:first-child {font-weight: bold;}
+
+        td > *:first-child {
+            font-weight: bold;
+        }*/
+
+        tr.Red {
+            background-color: lightcoral;
+        }
+
+        tr.Green {
+            background-color: lightgreen;
+        }
+
+        tr.Blue {
+            background-color: lightblue;
+        }
     </style>
 </head>
 <body>
@@ -44,6 +58,33 @@
         <h6>There are <span class="ng-bind: todos.length"></span> items</h6>
         <div ng-bind-template="First: {{todos[0].action}}. Second: {{todos[1].action}}"></div>
         <div ng-non-bindable>AngularJS uses {{ and }} characters for templates</div>
+
+        <div class="row well">
+            <div class="col-xs-6" ng-repeat="(key, val) in settings">
+                <h4>{{key}}</h4>
+                <div class="radio" ng-repeat="button in buttonNames">
+                    <input type="radio" ng-model="settings[key]" value="{{button}}" />{{button}}
+                </div>
+            </div>
+        </div>
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Action</th>
+                        <th>Done</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in todos" ng-class-even="settings.Rows" ng-class-odd="settings.Columns">
+                        <td>{{$index + 1}}</td>
+                        <td>{{item.action}}</td>
+                        <td>{{item.complete}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
         <div class="checkbox well">
             <label>
