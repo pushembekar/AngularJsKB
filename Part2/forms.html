@@ -77,7 +77,15 @@
                         <input name="userAgreed" type="checkbox" ng-model="newUser.agreed" required />I agree to the terms and conditions
                     </label>
                 </div>
-                <button class="btn btn-primary btn-primary" type="submit" ng-disabled="myForm.$invalid">OK</button>
+                <div class="checkbox">
+                    <label>
+                        <input name="sample" type="checkbox" ng-model="inputValue" ng-true-value="'Hurrah!'" ng-false-value="'Boo!'" />This is a checkbox
+                    </label>
+                </div>
+                <div class="well">
+                    <p>Model Value: {{inputValue}}</p>
+                </div>
+                <button class="btn btn-primary" type="submit" ng-disabled="myForm.$invalid">OK</button>
             </div>
             <div class="well">
                 Message: {{message}}
