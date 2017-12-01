@@ -6,7 +6,7 @@ app.controller("topLevelCtrl", function ($scope) {
 
     $scope.reverseText = function () {
         $scope.dataValue = $scope.dataValue.split("").reverse().join("");
-    };
+    }
 
     $scope.changeCase = function () {
         var result = [];
