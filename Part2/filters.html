@@ -23,7 +23,12 @@
                     { name: "Wine", category: "Drinks", price: 8.99, expiry: 365 },
                     { name: "Whiskey", category: "Drinks", price: 45.99, expiry: 365 }
                 ];
-            })
+
+                $scope.getExpiryDate = function (days) {
+                    var now = new Date();
+                    return now.setDate(now.getDate() + days);
+                };
+            });
     </script>
 </head>
 <body ng-controller="defaultCtrl">
@@ -46,9 +51,9 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="p in products">
-                        <td>{{p.name}}</td>
-                        <td>{{p.category}}</td>
-                        <td>{{p.expiry}}</td>
+                        <td>{{p.name | uppercase}}</td>
+                        <td>{{p.category | lowercase}}</td>
+                        <td>{{getExpiryDate(p.expiry) | date:"M/d/yyyy (EEEE)"}}</td>
                         <td class="text-right">${{p.price | number:2}}</td>
                     </tr>
                 </tbody>
