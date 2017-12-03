@@ -49,7 +49,7 @@
                         <td>{{p.name}}</td>
                         <td>{{p.category}}</td>
                         <td>{{p.expiry}}</td>
-                        <td class="text-right">{{p.price}}</td>
+                        <td class="text-right">${{p.price | number:2}}</td>
                     </tr>
                 </tbody>
             </table>
