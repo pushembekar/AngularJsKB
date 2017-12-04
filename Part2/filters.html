@@ -73,7 +73,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="p in products | skip:3 | limitTo: 5">
+                    <tr ng-repeat="p in products | take:2:6">
                         <td>{{p.name | labelCase}}</td>
                         <td>{{p.category | labelCase:true}}</td>
                         <td>{{getExpiryDate(p.expiry) | date:"shortDate"}}</td>
