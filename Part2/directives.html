@@ -32,6 +32,16 @@
                     }
                 }
             })
+            .directive("demoDirective", function () {
+                return function (scope, element, attrs) {
+                    var items = element.find("li");
+                    for (var i = 0; i < items.length; i++) {
+                        if (items.eq(i).text() == "Oranges") {
+                            items.eq(i).css("font-weight", "bold");
+                        }
+                    }
+                }
+            })
             .controller("defaultCtrl", function ($scope) {
                 $scope.products = [
                     { name: "Apples", category: "Fruit", price: 1.20, expiry: 10 },
@@ -59,6 +69,18 @@
         </div>
         <div class="panel-body">
             <div unordered-list="products" list-property="price | currency"></div>
+        </div>
+        <div class="panel-body">
+            <ol demo-directive>
+                <li>Apples</li>
+                <ul>
+                    <li>Apples</li>
+                    <li>Oranges</li>
+                    <li>Pears</li>
+                </ul>
+                <li>Oranges</li>
+                <li>Pears</li>
+            </ol>
         </div>
     </div>
 </body>
