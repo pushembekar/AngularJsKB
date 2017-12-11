@@ -17,8 +17,17 @@
                         var listElem = angular.element("<ul type='circle'>");
                         element.append(listElem);
                         for (var i = 0; i < data.length; i++) {
-                            listElem.append(angular.element('<li>')
-                                .text(scope.$eval(propertyExpression, data[i])));
+                            (function () {
+                                var itemElement = angular.element('<li>');
+                                listElem.append(itemElement);
+                                var index = i;
+                                var watcherFn = function (watchScope) {
+                                    return watchScope.$eval(propertyExpression, data[index]);
+                                }
+                                scope.$watch(watcherFn, function (newValue, oldValue) {
+                                    itemElement.text(newValue);
+                                });
+                            }());
                         }
                     }
                 }
