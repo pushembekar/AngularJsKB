@@ -15,7 +15,9 @@
                         scope.data = scope[attrs["unorderedList"]];
                     },
                     restrict: "A",
-                    templateUrl: "templates/itemTemplate.html"
+                    templateUrl: function (elem, attrs) {
+                        return attrs["template"] == "table" ? "templates/tableTemplate.html" : "templates/itemTemplate.html"
+                    }
                 }
             })
             .directive("demoDirective", function () {
@@ -57,7 +59,7 @@
             <unordered-list list-source="products" list-property="price | currency"></unordered-list>
         </div>
         <div class="panel-body">
-            <div unordered-list="products" list-property="price | currency"></div>
+            <div unordered-list="products" list-property="price | currency" template="table"></div>
         </div>
         <div class="panel-body">
             <div class="unordered-list: products" list-property="price | currency"></div>
