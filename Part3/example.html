@@ -8,16 +8,17 @@
     <link href="styles/bootstrap/bootstrap-theme.css" rel="stylesheet" />
     <script src="scripts/angular/angular.js"></script>
     <script src="scripts/directives/directives.js"></script>
+    <script src="scripts/services/services.js"></script>
     <script>
-        angular.module("exampleApp", ["customDirectives"])
-            .controller("defaultCtrl", function ($scope) {
+        angular.module("exampleApp", ["customDirectives", "customServices"])
+            .controller("defaultCtrl", function ($scope, logService) {
                 $scope.data = {
                     cities: ["London", "New York", "Paris"],
                     totalClicks: 0
                 };
 
                 $scope.$watch("data.totalClicks", function (newVal) {
-                    console.log("Total click count: " + newVal);
+                    logService.log("Total click count: " + newVal);
                 });
             });
     </script>
