@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" ng-app="exampleApp">
+<head>
+    <meta charset="utf-8" />
+    <title>Service and Modules</title>
+    <link href="styles/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="styles/bootstrap/bootstrap-theme.css" rel="stylesheet" />
+    <script src="scripts/angular/angular.js"></script>
+    <script>
+        angular.module("exampleApp", [])
+            .controller("defaultCtrl", function ($scope) {
+                $scope.data = {
+                    cities: ["London", "New York", "Paris"],
+                    totalClicks: 0
+                };
+
+                $scope.$watch("data.totalClicks", function (newVal) {
+                    console.log("Total click count: " + newVal);
+                });
+            })
+            .directive("triButton", function () {
+                return {
+                    scope: { counter: "=counter" },
+                    link: function (scope, element, attrs) {
+                        element.on("click", function (event) {
+                            console.log("Button click: " + event.target.innerText);
+                            scope.$apply(function () {
+                                scope.counter++;
+                            });
+                        });
+                    }
+                }
+            });
+    </script>
+</head>
+<body ng-controller="defaultCtrl">
+    <div class="well">
+        <div class="btn-group" tri-button counter="data.totalClicks">
+            <button class="btn btn-default" ng-repeat="city in data.cities">{{city}}</button>
+        </div>
+        <h5>Total Clicks: {{data.totalClicks}}</h5>
+    </div>
+</body>
+</html>
