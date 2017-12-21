@@ -11,14 +11,14 @@
     <script src="scripts/services/services.js"></script>
     <script>
         angular.module("exampleApp", ["customDirectives", "customServices"])
-            .controller("defaultCtrl", function ($scope, logService) {
+            .controller("defaultCtrl", function ($scope, logService, errorService) {
                 $scope.data = {
                     cities: ["London", "New York", "Paris"],
                     totalClicks: 0
                 };
 
                 $scope.$watch("data.totalClicks", function (newVal) {
-                    logService.log("Total click count: " + newVal);
+                    errorService.log("Total click count: " + newVal);
                 });
             });
     </script>
