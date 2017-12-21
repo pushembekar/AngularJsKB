@@ -27,3 +27,17 @@ errorLogger.prototype.msgType = "Error";
 angular.module("customServices", [])
     .service("logService", debugLogger)
     .service("errorService", errorLogger);
+
+angular.module("customServices", [])
+    .provider("logService", function () {
+        return {
+            $get: function () {
+                return {
+                    messageCount: 0,
+                    log: function (msg) {
+                        console.log("(ProtoType Log: " + this.messageCount++ + ") " + msg);
+                    }
+                };
+            }
+        }
+    });
