@@ -9,6 +9,11 @@
     <script src="scripts/angular/angular.js"></script>
     <script>
         angular.module("exampleApp", [])
+            .config(function ($locationProvider) {
+                if (window.history && history.pushState) {
+                    $locationProvider.html5Mode({ enabled: true, requireBase: false });
+                }
+            })
             .controller("timerCtrl", function ($scope, $interval, $timeout) {
                 $interval(function () {
                     $scope.time = new Date().toTimeString();
